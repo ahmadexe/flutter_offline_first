@@ -6,3 +6,7 @@ sealed class NewsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchNewsEvent extends NewsEvent {
+  const FetchNewsEvent();
+}
