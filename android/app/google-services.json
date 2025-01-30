@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "285644328548",
+    "project_id": "flutter-offline-first-bac0c",
+    "storage_bucket": "flutter-offline-first-bac0c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285644328548:android:f331360580a48ec3a39971",
+        "android_client_info": {
+          "package_name": "com.example.flutter_of"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYPjlUjAyqYSJiFWQMA5V4bnpNhTuIUE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
