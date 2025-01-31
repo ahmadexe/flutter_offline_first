@@ -17,9 +17,9 @@ class DbService {
     final path = join(dbPath, "news.db");
     return openDatabase(
       path,
-      version: 1,
-      onCreate: (db, version) {
-        return db.execute('''
+      version: 4, 
+      onCreate: (db, version) async {
+        await db.execute('''
             CREATE TABLE news(
               url TEXT PRIMARY KEY,
               title TEXT NOT NULL,
@@ -27,7 +27,32 @@ class DbService {
               content TEXT NOT NULL,
               urlToImage TEXT NOT NULL
             )
-      ''');
+        ''');
+
+        await db.execute('''
+            CREATE TABLE favourites(
+              url TEXT PRIMARY KEY,
+              title TEXT NOT NULL,
+              description TEXT NOT NULL,
+              content TEXT NOT NULL,
+              urlToImage TEXT NOT NULL,
+              isSynced INTEGER NOT NULL DEFAULT 1
+            )
+        ''');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 4) {
+          await db.execute('''
+            CREATE TABLE IF NOT EXISTS favourites(
+              url TEXT PRIMARY KEY,
+              title TEXT NOT NULL,
+              description TEXT NOT NULL,
+              content TEXT NOT NULL,
+              urlToImage TEXT NOT NULL,
+              isSynced INTEGER NOT NULL DEFAULT 1
+            )
+          ''');
+        }
       },
     );
   }

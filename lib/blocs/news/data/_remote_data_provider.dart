@@ -2,6 +2,7 @@ part of '../bloc.dart';
 
 class _RemoteDataProvider {
   final _client = http.Client();
+  final _firestore = FirebaseFirestore.instance;
 
   Future<List<Article>> getArticles() async {
     try {
@@ -34,6 +35,30 @@ class _RemoteDataProvider {
       }
     } catch (e) {
       debugPrint("Error in getArticles: ${e.toString()}");
+      rethrow;
+    }
+  }
+
+  Future<void> markFavourite(Article article) async {
+    try {
+      await _firestore.collection('favourite').add(article.toMap());
+    } catch (e) {
+      debugPrint("Error in markFavourite: ${e.toString()}");
+      rethrow;
+    }
+  }
+
+  Future<List<Article>> getFavourites() async {
+    try {
+      final res = await _firestore.collection('favourite').get();
+      List<Article> favourites = [];
+      for (final doc in res.docs) {
+        favourites.add(Article.fromMap(doc.data()));
+      }
+
+      return favourites;
+    } catch (e) {
+      debugPrint("Error in getFavourites: ${e.toString()}");
       rethrow;
     }
   }

@@ -1,48 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_of/blocs/news/bloc.dart';
-import 'package:flutter_of/screens/favourites_screen.dart';
 import 'package:flutter_of/widgets/news_card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class FavouriteScreen extends StatefulWidget {
+  const FavouriteScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<FavouriteScreen> createState() => _FavouriteScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<NewsBloc>(context).add(const FetchNewsEvent());
+    final bloc = BlocProvider.of<NewsBloc>(context);
+    bloc.add(const FetchFavourites());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Offline News App'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FavouriteScreen()));
-            },
-          ),
-        ],
+        title: const Text('Favourite'),
       ),
       body: BlocBuilder<NewsBloc, NewsState>(
         builder: (context, state) {
-          if (state.fetch is NewsFetchLoading ||
-              state.fetch is NewsFetchInitial) {
+          if (state.fetchFavourite is FavouriteFetchLoading ||
+              state.fetchFavourite is FavouriteFetchInitial) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state.fetch is NewsFetchFailure) {
+          } else if (state.fetchFavourite is FavouriteFetchFailure) {
             return const Center(child: Text('Error fetching news'));
           }
 
-          final articles = state.articles;
+          final articles = state.favourites;
 
           return ListView.builder(
             padding: const EdgeInsets.all(16),

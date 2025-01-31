@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_of/blocs/news/bloc.dart';
 import 'package:flutter_of/models/article.dart';
 
 class NewsCard extends StatelessWidget {
@@ -7,6 +9,7 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsBloc = BlocProvider.of<NewsBloc>(context);
     return GestureDetector(
       onTap: () async {},
       child: Container(
@@ -14,9 +17,21 @@ class NewsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              article.title,
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    article.title,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      newsBloc.add(MarkFavourite(article: article));
+                    },
+                    child: const Text('Favourite'))
+              ],
             ),
             Text(
               article.description,

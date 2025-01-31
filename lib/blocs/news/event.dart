@@ -10,3 +10,14 @@ sealed class NewsEvent extends Equatable {
 class FetchNewsEvent extends NewsEvent {
   const FetchNewsEvent();
 }
+
+class MarkFavourite extends NewsEvent {
+  final Article article;
+  const MarkFavourite({
+    required this.article,
+  });
+}
+
+class FetchFavourites extends NewsEvent {
+  const FetchFavourites();
+}

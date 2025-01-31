@@ -6,12 +6,14 @@ class Article {
   final String content;
   final String url;
   final String urlToImage;
+  final int? isSynced;
   Article({
     required this.title,
     required this.description,
     required this.content,
     required this.url,
     required this.urlToImage,
+    this.isSynced = 1,
   });
 
   Article copyWith({
@@ -20,6 +22,7 @@ class Article {
     String? content,
     String? url,
     String? urlToImage,
+    int? isSynced,
   }) {
     return Article(
       title: title ?? this.title,
@@ -27,6 +30,7 @@ class Article {
       content: content ?? this.content,
       url: url ?? this.url,
       urlToImage: urlToImage ?? this.urlToImage,
+      isSynced: isSynced?? this.isSynced,
     );
   }
 
@@ -37,6 +41,7 @@ class Article {
       'content': content,
       'url': url,
       'urlToImage': urlToImage,
+      'isSynced': isSynced,
     };
   }
 
@@ -47,6 +52,7 @@ class Article {
       content: map['content'] as String,
       url: map['url'] as String,
       urlToImage: map['urlToImage'] as String,
+      isSynced: map['isSynced'] ?? 1,
     );
   }
 
@@ -57,7 +63,7 @@ class Article {
 
   @override
   String toString() {
-    return 'Article(title: $title, description: $description, content: $content, url: $url, urlToImage: $urlToImage)';
+    return 'Article(title: $title, description: $description, content: $content, url: $url, urlToImage: $urlToImage, isSynced: $isSynced,)';
   }
 
   @override
@@ -68,7 +74,8 @@ class Article {
         other.description == description &&
         other.content == content &&
         other.url == url &&
-        other.urlToImage == urlToImage;
+        other.urlToImage == urlToImage &&
+        other.isSynced == isSynced;
   }
 
   @override
@@ -77,6 +84,7 @@ class Article {
         description.hashCode ^
         content.hashCode ^
         url.hashCode ^
-        urlToImage.hashCode;
+        urlToImage.hashCode ^
+        isSynced.hashCode;
   }
 }
