@@ -17,6 +17,7 @@ class DbService {
     final path = join(dbPath, "news.db");
     return openDatabase(
       path,
+      version: 1,
       onCreate: (db, version) {
         return db.execute('''
             CREATE TABLE news(
@@ -25,7 +26,6 @@ class DbService {
               description TEXT NOT NULL,
               content TEXT NOT NULL,
               urlToImage TEXT NOT NULL
-              isSynced INTEGER NOT NULL
             )
       ''');
       },

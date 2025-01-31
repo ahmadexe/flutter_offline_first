@@ -14,17 +14,6 @@ class NewsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-              child: SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Image.network(
-                  article.urlToImage,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
             Text(
               article.title,
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
@@ -33,6 +22,7 @@ class NewsCard extends StatelessWidget {
               article.description,
               style: const TextStyle(color: Colors.black45, fontSize: 15),
             ),
+            const Divider(),
           ],
         ),
       ),

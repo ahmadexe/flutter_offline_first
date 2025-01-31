@@ -11,6 +11,8 @@ class _NewsRepository {
         _localProvider.insertArticles(response);
       }
       return response;
+    } on SocketException {
+      return _localProvider.getArticles();
     } catch (e) {
       rethrow;
     }

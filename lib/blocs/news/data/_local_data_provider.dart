@@ -33,7 +33,7 @@ class _LocalDataProvider {
     }
   }
 
-  Future<List<Article>> getAllArticles() async {
+  Future<List<Article>> getArticles() async {
     try {
       final db = await DbService.database;
 
